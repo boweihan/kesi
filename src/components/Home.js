@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { connect } from 'react-redux';
@@ -13,7 +15,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class Home extends React.Component {
+class Home extends React.Component<{ foo: number, bar?: string }> {
   render() {
     return (
       <View style={styles.container}>

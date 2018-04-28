@@ -1,11 +1,12 @@
 module.exports = {
+  parser: 'babel-eslint',
   extends: 'airbnb',
   env: {
     browser: true,
     es6: true,
     jest: true,
   },
-  plugins: ['react', 'jsx-a11y', 'import'],
+  plugins: ['flowtype', 'react', 'jsx-a11y', 'import'],
   rules: {
     'import/no-unresolved': 'off',
     'import/extensions': 'off',
