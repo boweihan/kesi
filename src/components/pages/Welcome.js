@@ -12,6 +12,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { ActionCreators } from 'src/actions';
 import Colors from 'src/constants/colors';
+import Logo from 'src/assets/images/logo.png';
 
 const styles = StyleSheet.create({
   container: {
@@ -58,7 +59,10 @@ const styles = StyleSheet.create({
   },
 });
 
-class Welcome extends React.Component<{}, { fastLength: number }> {
+class Welcome extends React.Component<
+  { setFastLength: Function },
+  { fastLength: number },
+> {
   static getHourOptions = () => {
     const options = [];
     for (let i = 1; i <= 24; i += 1) {
@@ -77,6 +81,10 @@ class Welcome extends React.Component<{}, { fastLength: number }> {
     fastLength: 12,
   };
 
+  updateFastLength = fastLength => {
+    this.setState({ fastLength });
+  };
+
   render() {
     return (
       <View style={styles.container}>
@@ -86,11 +94,14 @@ class Welcome extends React.Component<{}, { fastLength: number }> {
           <Picker
             selectedValue={this.state.fastLength}
             style={styles.picker}
-            onValueChange={val => this.setState({ fastLength: val })}
+            onValueChange={this.updateFastLength}
           >
             {Welcome.getHourOptions()}
           </Picker>
-          <TouchableOpacity style={styles.button} onPress={() => {}}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => this.props.setFastLength(this.state.fastLength)}
+          >
             <Text style={styles.buttonText}>SET GOAL</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => {}}>
@@ -98,10 +109,7 @@ class Welcome extends React.Component<{}, { fastLength: number }> {
           </TouchableOpacity>
         </View>
         <View style={styles.lower}>
-          <Image
-            style={{ width: 100, height: 100 }}
-            source={require('src/assets/images/logo.png')}
-          />
+          <Image style={{ width: 100, height: 100 }} source={Logo} />
         </View>
       </View>
     );
@@ -112,10 +120,8 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(ActionCreators, dispatch);
 }
 
-function mapStateToProps(state) {
-  return {
-    clock: state.clock,
-  };
+function mapStateToProps() {
+  return {};
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Welcome);

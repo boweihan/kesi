@@ -5,10 +5,11 @@ import { bindActionCreators } from 'redux';
 import { ActionCreators } from 'src/actions';
 
 import Welcome from 'src/components/pages/Welcome';
+import Dashboard from 'src/components/pages/Dashboard';
 
-class Home extends React.Component<{}> {
+class Home extends React.Component<{ fast: Object }> {
   render() {
-    return <Welcome />;
+    return this.props.fast.length ? <Dashboard /> : <Welcome />;
   }
 }
 
@@ -18,7 +19,7 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
   return {
-    clock: state.clock,
+    fast: state.fast,
   };
 }
 
