@@ -1,5 +1,4 @@
 // @flow
-
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { connect } from 'react-redux';
@@ -15,7 +14,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class Home extends React.Component<{ foo: number, bar?: string }> {
+class Home extends React.Component<{}> {
   render() {
     return (
       <View style={styles.container}>
@@ -32,6 +31,7 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state) {
   return {
     clock: state.clock,
+    bad: true,
   };
 }
 

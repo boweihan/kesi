@@ -1,3 +1,4 @@
+// @flow
 import createReducer from 'src/helpers/createReducer';
 import * as types from 'src/constants/actions';
 
@@ -6,8 +7,8 @@ const defaultClock = {
   endTime: null,
 };
 
-export const clock = createReducer(defaultClock, {
-  [types.SET_CLOCK_START_TIME](state, action) {
+export const clock = createReducer((defaultClock: Object), {
+  [types.SET_CLOCK_START_TIME](state, action: { time: number }) {
     if (action.time) {
       return Object.assign({}, state, {
         startTime: action.time,
@@ -15,7 +16,7 @@ export const clock = createReducer(defaultClock, {
     }
     return state;
   },
-  [types.SET_CLOCK_END_TIME](state, action) {
+  [types.SET_CLOCK_END_TIME](state, action: { time: number }) {
     if (action.time) {
       return Object.assign({}, state, {
         startTime: action.time,
