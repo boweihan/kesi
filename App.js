@@ -1,8 +1,14 @@
 import React from 'react';
-import Home from 'src/Home';
+import { Provider } from 'react-redux';
+import Home from 'src/components/Home';
+import store from 'src/store/configureStore';
 
 export default class App extends React.Component {
   render() {
-    return <Home />;
+    return (
+      <Provider store={store}>
+        <Home />
+      </Provider>
+    );
   }
 }

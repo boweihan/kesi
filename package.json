@@ -2,6 +2,14 @@
   "name": "kesi",
   "version": "0.1.0",
   "private": true,
+  "dependencies": {
+    "expo": "^27.0.1",
+    "react": "16.3.1",
+    "react-native": "~0.55.2",
+    "react-redux": "^5.0.7",
+    "redux": "^4.0.0",
+    "redux-thunk": "^2.2.0"
+  },
   "devDependencies": {
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
@@ -11,7 +19,9 @@
     "jest-expo": "~27.0.0",
     "prettier": "^1.12.1",
     "react-native-scripts": "1.14.0",
-    "react-test-renderer": "16.3.1"
+    "react-test-renderer": "16.3.1",
+    "redux-devtools": "^3.4.1",
+    "redux-devtools-extension": "^2.13.2"
   },
   "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
   "scripts": {
@@ -23,10 +33,5 @@
   },
   "jest": {
     "preset": "jest-expo"
-  },
-  "dependencies": {
-    "expo": "^27.0.1",
-    "react": "16.3.1",
-    "react-native": "~0.55.2"
   }
 }
