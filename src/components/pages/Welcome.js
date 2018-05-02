@@ -36,8 +36,18 @@ const styles = StyleSheet.create({
   bodyText: {
     fontSize: 16,
   },
+  pickerContainer: {
+    width: '30%',
+    height: 160,
+    display: 'flex',
+    flexDirection: 'row',
+  },
   picker: {
-    width: '100%',
+    flex: 1,
+  },
+  pickerItem: {
+    height: 100,
+    marginVertical: 30,
   },
   button: {
     margin: 20,
@@ -57,6 +67,18 @@ const styles = StyleSheet.create({
   typesButton: {
     color: Colors.linkBlue,
   },
+  colon: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  colonText: {
+    fontWeight: 'bold',
+  },
+  logo: {
+    width: 100,
+    height: 100,
+  },
 });
 
 class Welcome extends React.Component<
@@ -65,14 +87,8 @@ class Welcome extends React.Component<
 > {
   static getHourOptions = () => {
     const options = [];
-    for (let i = 1; i <= 24; i += 1) {
-      let label;
-      if (i === 1) {
-        label = `${i} hour`;
-      } else {
-        label = `${i} hours`;
-      }
-      options.push(<Picker.Item key={i} label={label} value={i} />);
+    for (let i = 0; i <= 24; i += 1) {
+      options.push(<Picker.Item key={i} label={i.toString()} value={i} />);
     }
     return options;
   };
@@ -91,13 +107,27 @@ class Welcome extends React.Component<
         <View style={styles.upper}>
           <Text style={styles.headerText}>Welcome</Text>
           <Text style={styles.bodyText}>Set target fast</Text>
-          <Picker
-            selectedValue={this.state.fastLength}
-            style={styles.picker}
-            onValueChange={this.updateFastLength}
-          >
-            {Welcome.getHourOptions()}
-          </Picker>
+          <View style={styles.pickerContainer}>
+            <Picker
+              selectedValue={this.state.fastLength}
+              style={styles.picker}
+              itemStyle={styles.pickerItem}
+              onValueChange={this.updateFastLength}
+            >
+              {Welcome.getHourOptions()}
+            </Picker>
+            <View style={styles.colon}>
+              <Text style={styles.colonText}>:</Text>
+            </View>
+            <Picker
+              selectedValue={24 - this.state.fastLength}
+              style={styles.picker}
+              itemStyle={styles.pickerItem}
+              onValueChange={remainder => this.updateFastLength(24 - remainder)}
+            >
+              {Welcome.getHourOptions()}
+            </Picker>
+          </View>
           <TouchableOpacity
             style={styles.button}
             onPress={() => this.props.setFastLength(this.state.fastLength)}
@@ -109,7 +139,7 @@ class Welcome extends React.Component<
           </TouchableOpacity>
         </View>
         <View style={styles.lower}>
-          <Image style={{ width: 100, height: 100 }} source={Logo} />
+          <Image style={styles.logo} source={Logo} />
         </View>
       </View>
     );

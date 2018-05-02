@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import { StyleSheet, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { LinearGradient } from 'expo';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
