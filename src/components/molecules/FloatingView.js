@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
 class FloatingView extends React.PureComponent<{ fast: Object }, {}> {
   render() {
     const endDate = new Date(
-      this.props.fast.startTime.getTime() + this.props.fast.length * 3600000,
+      this.props.fast.startTime + this.props.fast.length * 3600000,
     );
 
     return (

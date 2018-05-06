@@ -53,14 +53,14 @@ class Dashboard extends React.Component<
   }
 
   tick = () => {
-    this.props.setCurrentTime(new Date());
+    this.props.setCurrentTime(new Date().getTime());
   };
 
   tock = () => {
     const proxyFast = {
       length: this.props.fast.length,
       startTime: this.props.fast.startTime,
-      currentTime: new Date(),
+      currentTime: new Date().getTime(),
     };
     this.props.setFastTimeLeft(Util.calculateTimeLeft(proxyFast));
   };

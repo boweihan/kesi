@@ -19,7 +19,7 @@ export const setFastLength = (hours: number) => (dispatch: Function) => {
   });
 };
 
-export const setCurrentTime = (currentTime: Date) => (dispatch: Function) => {
+export const setCurrentTime = (currentTime: number) => (dispatch: Function) => {
   dispatch({
     type: types.SET_CURRENT_TIME,
     time: currentTime,

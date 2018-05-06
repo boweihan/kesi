@@ -108,7 +108,7 @@ class Welcome extends React.Component<
   };
 
   initializeFast = () => {
-    const time = new Date();
+    const time = new Date().getTime();
     const fast = {
       length: this.state.fastLength,
       startTime: time,

@@ -26,8 +26,8 @@ class DateTimeView extends React.PureComponent<
   {},
 > {
   render() {
-    const timeString = Util.msToTimeSparse(this.props.date.getTime());
-    const dateString = Util.stringifyDate(this.props.date);
+    const timeString = Util.msToTimeSparse(this.props.date);
+    const dateString = Util.stringifyDate(new Date(this.props.date));
     return (
       <View style={styles.container}>
         <Text style={styles.header}>{this.props.headerText}</Text>

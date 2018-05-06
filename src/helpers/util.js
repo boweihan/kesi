@@ -1,7 +1,6 @@
 class Util {
   static calculateProgress = (fast: Object) => {
-    const differenceInMs =
-      fast.currentTime.getTime() - fast.startTime.getTime();
+    const differenceInMs = fast.currentTime - fast.startTime;
     // const differentInS = differenceInMs / 1000;
     // return differentInS / 10;
     const differenceInHr = differenceInMs / 3600000;
@@ -9,8 +8,8 @@ class Util {
   };
 
   static calculateTimeLeft = (fast: Object) => {
-    const endTime = fast.startTime.getTime() + 3600000 * fast.length;
-    const timeLeftInMs = endTime - fast.currentTime.getTime();
+    const endTime = fast.startTime + 3600000 * fast.length;
+    const timeLeftInMs = endTime - fast.currentTime;
     if (timeLeftInMs <= 0) {
       return 0;
     }

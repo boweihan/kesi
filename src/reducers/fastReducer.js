@@ -4,8 +4,8 @@ import * as types from 'src/constants/actions';
 
 const defaultFast = {
   length: 0,
-  startTime: new Date(),
-  currentTime: new Date(),
+  startTime: 0,
+  currentTime: 0,
   timeLeft: '',
 };
 
@@ -24,7 +24,7 @@ export const fast = createReducer((defaultFast: Object), {
     }
     return state;
   },
-  [types.SET_FAST_START_TIME](state, action: { time: Date }) {
+  [types.SET_FAST_START_TIME](state, action: { time: number }) {
     if (action.time) {
       return Object.assign({}, state, {
         startTime: action.time,
@@ -32,7 +32,7 @@ export const fast = createReducer((defaultFast: Object), {
     }
     return state;
   },
-  [types.SET_CURRENT_TIME](state, action: { time: Date }) {
+  [types.SET_CURRENT_TIME](state, action: { time: number }) {
     if (action.time) {
       return Object.assign({}, state, {
         currentTime: action.time,
