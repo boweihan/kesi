@@ -7,6 +7,15 @@ class Util {
     return differenceInHr >= fast.length ? 1 : differenceInHr / fast.length;
   };
 
+  static calculateTimeLeftInMs = (fast: Object) => {
+    const endTime = fast.startTime + 3600000 * fast.length;
+    const timeLeftInMs = endTime - fast.currentTime;
+    if (timeLeftInMs <= 0) {
+      return 0;
+    }
+    return timeLeftInMs;
+  };
+
   static calculateTimeLeft = (fast: Object) => {
     const endTime = fast.startTime + 3600000 * fast.length;
     const timeLeftInMs = endTime - fast.currentTime;

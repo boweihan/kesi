@@ -29,6 +29,7 @@ class Dashboard extends React.PureComponent<
     setCurrentTime: Function,
     setFastTimeLeft: Function,
     fast: Object,
+    notification: Object,
   },
   { slowTimer: any, fastTimer: any },
 > {
@@ -63,6 +64,37 @@ class Dashboard extends React.PureComponent<
       currentTime: new Date().getTime(),
     };
     this.props.setFastTimeLeft(Util.calculateTimeLeft(proxyFast));
+    this.handleNotifications(proxyFast);
+  };
+
+  handleNotifications = (proxyFast: Object) => {
+    const msTimeLeft = Util.calculateTimeLeftInMs(proxyFast);
+    if (msTimeLeft <= 1800000 && msTimeLeft > 1800000 - 30000) {
+      this.sendPushNotification('30 minutes left.', 'Almost there!');
+    } else if (msTimeLeft <= 3600000 && msTimeLeft > 3600000 - 30000) {
+      this.sendPushNotification('1 hour left!', "You're doing great.");
+    } else if (msTimeLeft <= 3600000 * 3 && msTimeLeft > 3600000 * 3 - 30000) {
+      this.sendPushNotification('3 hours left!', "Don't think about food.");
+    }
+  };
+
+  sendPushNotification = (
+    title = 'Hey!',
+    body = "The team at Kesi hope you're having a great day.",
+    token = this.props.notification.token,
+  ) => {
+    fetch('https://exp.host/--/api/v2/push/send', {
+      body: JSON.stringify({
+        to: token,
+        title,
+        body,
+        data: { message: `${title} - ${body}` },
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+    });
   };
 
   render() {
@@ -87,7 +119,10 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
-  return { fast: state.fast };
+  return {
+    fast: state.fast,
+    notification: state.notification,
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
