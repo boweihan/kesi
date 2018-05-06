@@ -16,8 +16,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   graphContainer: {
-    maxHeight: height * 0.25,
-    height: height * 0.25,
+    maxHeight: height * 0.3,
     maxWidth: 0.8 * width,
     flex: 1,
     flexDirection: 'row',
@@ -25,11 +24,13 @@ const styles = StyleSheet.create({
   header: {
     fontSize: 10,
     fontWeight: '700',
+    paddingTop: 0.05 * height,
   },
   graph: {
     height: '100%',
     maxHeight: '100%',
     flex: 1,
+    alignSelf: 'flex-end',
   },
   yAxis: {
     height: '100%',
