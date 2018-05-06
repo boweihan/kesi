@@ -15,5 +15,7 @@ module.exports = {
     'react/prefer-stateless-function': 'off',
     'react/jsx-filename-extension': 'off',
     'arrow-parens': 'off',
+    'function-paren-newline': 'off',
+    'no-mixed-operators': 'off',
   },
 };

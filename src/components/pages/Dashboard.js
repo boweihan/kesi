@@ -6,6 +6,11 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { ActionCreators } from 'src/actions';
 import Colors from 'src/constants/colors';
+import Util from 'src/helpers/util';
+import ProgressChart from 'src/components/atoms/ProgressChart';
+import ProgressChartCenter from 'src/components/molecules/ProgressChartCenter';
+import FloatingView from 'src/components/molecules/FloatingView';
+import BarGraph from 'src/components/atoms/BarGraph';
 
 const styles = StyleSheet.create({
   container: {
@@ -17,52 +22,61 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: Colors.red,
   },
-  lower: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  centerFloat: {
-    position: 'absolute',
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: '100%',
-    width: '100%',
-  },
-  centerFloat__container: {
-    flex: 1,
-    height: 75,
-  },
-  centerFloat__box: {
-    marginHorizontal: '15%',
-    height: '100%',
-    width: '70%',
-    backgroundColor: 'white',
-    shadowOffset: { width: 5, height: 5 },
-    shadowColor: 'black',
-    shadowOpacity: 0.2,
-    borderRadius: 10,
-  },
 });
 
-class Dashboard extends React.Component<{}, {}> {
+class Dashboard extends React.Component<
+  {
+    setCurrentTime: Function,
+    setFastTimeLeft: Function,
+    fast: Object,
+  },
+  { slowTimer: any, fastTimer: any },
+> {
+  constructor() {
+    super();
+    this.state = {
+      slowTimer: null,
+      fastTimer: null,
+    };
+  }
+
+  componentDidMount() {
+    const slowTimer = setInterval(this.tick, 30000);
+    this.setState({ slowTimer }); // eslint-disable-line
+    const fastTimer = setInterval(this.tock, 1000);
+    this.setState({ fastTimer }); // eslint-disable-line
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.state.slowTimer);
+    clearInterval(this.state.fastTimer);
+  }
+
+  tick = () => {
+    this.props.setCurrentTime(new Date());
+  };
+
+  tock = () => {
+    const proxyFast = {
+      length: this.props.fast.length,
+      startTime: this.props.fast.startTime,
+      currentTime: new Date(),
+    };
+    this.props.setFastTimeLeft(Util.calculateTimeLeft(proxyFast));
+  };
+
   render() {
     return (
       <View style={styles.container}>
         <LinearGradient
-          colors={[Colors.red, Colors.lightRed]}
+          colors={[Colors.red, Colors.darkRed, Colors.purple]}
           style={styles.upper}
         >
-          <View>your elements here</View>
+          <ProgressChart style={{ zIndex: 1 }} />
+          <ProgressChartCenter style={{ zIndex: 1000 }} />
         </LinearGradient>
-        <View style={styles.lower} />
-        <View style={styles.centerFloat}>
-          <View style={styles.centerFloat__container}>
-            <View style={styles.centerFloat__box} />
-          </View>
-        </View>
+        <BarGraph />
+        <FloatingView />
       </View>
     );
   }
@@ -73,9 +87,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
-  return {
-    clock: state.clock,
-  };
+  return { fast: state.fast };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

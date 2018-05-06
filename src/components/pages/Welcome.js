@@ -11,6 +11,7 @@ import {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { ActionCreators } from 'src/actions';
+import Util from 'src/helpers/util';
 import Colors from 'src/constants/colors';
 import Logo from 'src/assets/images/logo.png';
 
@@ -37,7 +38,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   pickerContainer: {
-    width: '30%',
+    width: 150,
     height: 160,
     display: 'flex',
     flexDirection: 'row',
@@ -46,8 +47,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   pickerItem: {
-    height: 100,
-    marginVertical: 30,
+    height: 80,
+    marginVertical: 40,
+    fontSize: 40,
   },
   button: {
     margin: 20,
@@ -82,8 +84,12 @@ const styles = StyleSheet.create({
 });
 
 class Welcome extends React.Component<
-  { setFastLength: Function },
-  { fastLength: number },
+  {
+    setFast: Function,
+  },
+  {
+    fastLength: number,
+  },
 > {
   static getHourOptions = () => {
     const options = [];
@@ -99,6 +105,18 @@ class Welcome extends React.Component<
 
   updateFastLength = fastLength => {
     this.setState({ fastLength });
+  };
+
+  initializeFast = () => {
+    const time = new Date();
+    const fast = {
+      length: this.state.fastLength,
+      startTime: time,
+      currentTime: time,
+      timeLeft: '',
+    };
+    fast.timeLeft = Util.calculateTimeLeft(fast);
+    this.props.setFast(fast);
   };
 
   render() {
@@ -130,7 +148,7 @@ class Welcome extends React.Component<
           </View>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => this.props.setFastLength(this.state.fastLength)}
+            onPress={() => this.initializeFast()}
           >
             <Text style={styles.buttonText}>SET GOAL</Text>
           </TouchableOpacity>
