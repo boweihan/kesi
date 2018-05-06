@@ -39,20 +39,23 @@ const styles = StyleSheet.create({
   },
   pickerContainer: {
     width: 150,
-    height: 160,
+    height: 80,
     display: 'flex',
     flexDirection: 'row',
+    borderTopWidth: 2,
+    borderBottomWidth: 2,
+    borderColor: Colors.lightGray,
+    marginVertical: 30,
   },
   picker: {
     flex: 1,
   },
   pickerItem: {
     height: 80,
-    marginVertical: 40,
     fontSize: 40,
   },
   button: {
-    margin: 20,
+    marginBottom: 30,
     backgroundColor: Colors.red,
     paddingHorizontal: 40,
     paddingVertical: 10,
@@ -93,7 +96,7 @@ class Welcome extends React.Component<
 > {
   static getHourOptions = () => {
     const options = [];
-    for (let i = 0; i <= 24; i += 1) {
+    for (let i = 1; i <= 23; i += 1) {
       options.push(<Picker.Item key={i} label={i.toString()} value={i} />);
     }
     return options;

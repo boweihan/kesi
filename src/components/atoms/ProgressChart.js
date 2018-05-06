@@ -9,8 +9,8 @@ import Util from 'src/helpers/util';
 
 const styles = StyleSheet.create({
   chart: {
-    height: '80%',
-    width: '80%',
+    height: '70%',
+    width: '70%',
   },
 });
 

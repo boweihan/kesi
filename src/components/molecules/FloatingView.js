@@ -26,9 +26,9 @@ const styles = StyleSheet.create({
     height: 80,
   },
   box: {
-    marginHorizontal: '15%',
+    marginHorizontal: '5%',
     height: '100%',
-    width: '70%',
+    width: '90%',
     backgroundColor: 'white',
     shadowOffset: { width: 5, height: 5 },
     shadowColor: Colors.black,

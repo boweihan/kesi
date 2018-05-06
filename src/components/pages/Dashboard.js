@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class Dashboard extends React.Component<
+class Dashboard extends React.PureComponent<
   {
     setCurrentTime: Function,
     setFastTimeLeft: Function,
