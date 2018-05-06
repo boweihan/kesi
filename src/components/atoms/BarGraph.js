@@ -16,7 +16,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   graphContainer: {
-    maxHeight: height * 0.3,
+    maxHeight: height * 0.25,
+    height: height * 0.25,
     maxWidth: 0.8 * width,
     flex: 1,
     flexDirection: 'row',
