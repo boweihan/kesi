@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { ActionCreators } from 'src/actions';
 import { FontAwesome } from '@expo/vector-icons';
+import Util from 'src/helpers/util';
 
 const styles = StyleSheet.create({
   container: {
@@ -53,10 +54,26 @@ const styles = StyleSheet.create({
 });
 
 class ProgressChartCenter extends React.PureComponent<
-  { fast: Object, setFast: Function },
+  {
+    fast: Object,
+    setFast: Function,
+    addFastStat: Function,
+  },
   {},
 > {
   stopFast = () => {
+    this.props.addFastStat({
+      length: this.props.fast.length,
+      startTime: this.props.fast.startTime,
+      duration: Math.min(
+        Math.round(
+          Util.calculateProgress(this.props.fast) *
+            this.props.fast.length *
+            100,
+        ) / 100,
+        this.props.fast.length,
+      ),
+    });
     this.props.setFast({
       length: 0,
     });

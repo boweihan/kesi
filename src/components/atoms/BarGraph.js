@@ -44,10 +44,23 @@ const styles = StyleSheet.create({
   },
 });
 
-class BarGraph extends React.PureComponent<{}, {}> {
+class BarGraph extends React.PureComponent<{ stats: Object }, {}> {
+  getData = () => {
+    const previousFasts = this.props.stats.previousFasts.slice(
+      Math.max(this.props.stats.previousFasts.length - 12, 0),
+    );
+    let returnVal = previousFasts.map(fastStat => fastStat.duration);
+    if (returnVal.length < 12) {
+      const filler = new Array(12 - returnVal.length).fill(0);
+      returnVal = filler.concat(returnVal);
+    }
+    return returnVal;
+  };
+
   render() {
     const fill = Colors.purple;
-    const data = [5, 2, 12, 23, 16, 8, 16, 16, 14, 15, 3, 0];
+    // const data = [5, 2, 12, 23, 16, 8, 16, 16, 14, 15, 3, 0];
+    const data = this.getData();
     const contentInset = { top: 30, bottom: 30 };
     const numberOfTicks = 6;
     return (
@@ -95,6 +108,7 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state) {
   return {
     fast: state.fast,
+    stats: state.stats,
   };
 }
 
